@@ -1,4 +1,4 @@
-const glassFilled = new Promise((resolve, reject) => {
+const fillGlass = new Promise((resolve, reject) => {
     setTimeout(() => {
         let level = Math.random();
         if (level >= 0.7) {
@@ -16,37 +16,35 @@ class Glass {
     }
 }
   
-// function pourWater(glasses) {
-//         let completed = 0;
-//         while (completed < glasses) {
-//             let curGlassNum = completed + 1;
-//             var curGlass = new Glass(curGlassNum);
-//             glassFilled.then(result => {curGlass.fillLevel = result;}, errorMsg => {curGlass.full = errorMsg;});
-//             if (curGlass.full === undefined)
-//             {
-//                 console.log(`Good pour! Glass ${curGlass.glassNum} is ${curGlass.fillLevel}% full. Drink up!`);
-//             } else {
-//                 console.log(`That's a bad pour!`);
-//             }
-
-//             completed += 1;
-//         }
-//  }
-
-// pourWater(5);
-
-function serveGlass(glassId, result) {
-    console.log(`That's a good pour! Glass ${glassId} is ${result}% full. Drink up.`)
+function serveGlass(curGlass, result) {
+    console.log(`That's a good pour! Glass ${curGlass.GlassId} is ${result}% full. Drink up.`)
 }
 
-function returnGlass(glassId, errorMsg) {
-    console.log(`That's a bad pour. Glass ${glassId} ${errorMsg} Try again.`);
+function returnGlass(curGlass, errorMsg) {
+    console.log(`That's a bad pour. Glass ${curGlass.GlassId} ${errorMsg} Try again.`);
 }
 
-function pour() {
-    var curGlass = new Glass();
-    curGlass.glassNum = 1;        
-    glassFilled.then(result => serveGlass(curGlass.glassNum, result), errorMsg => returnGlass(curGlass.glassNum, errorMsg));
+function pour(ordered) {
+    let attempted = 1;
+    while (attempted <= ordered) {
+        var curGlass = new Glass(attempted);
+        console.log(curGlass);
+        fillGlass.then(result => serveGlass(curGlass, result), errorMsg => returnGlass(curGlass, errorMsg));
+        attempted++;
+    }
 }
 
-pour();
+pour(3);
+
+// Problem: although a unique object is being created each iteration, 
+// only the last object is being used in the callback functions.
+
+// Output:
+// That's a bad pour. Glass 3 failed! Try again.
+// That's a bad pour. Glass 3 failed! Try again.
+// That's a bad pour. Glass 3 failed! Try again.
+
+// Or something like:
+// That's a good pour! Glass 3 is 74% full. Drink up.
+// That's a good pour! Glass 3 is 74% full. Drink up.
+// That's a good pour! Glass 3 is 74% full. Drink up.
