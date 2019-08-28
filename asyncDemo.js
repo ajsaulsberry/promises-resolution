@@ -8,4 +8,4 @@ console.log(promise1a);
 promise1a.then(resolveValue => console.log(resolveValue));
 console.log('After promise1a is called');
 console.log(promise1a);
-setTimeout(function(){console.log(promise1a);}, 2000);
+// setTimeout(function(){console.log(promise1a);}, 2000);

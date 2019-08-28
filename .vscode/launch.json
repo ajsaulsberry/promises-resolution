@@ -16,6 +16,12 @@
             "name": "Launch sync",
             "program": "${workspaceFolder}\\syncDemo.js"
         }
-
+        ,
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Launch practical",
+            "program": "${workspaceFolder}\\practical.js"
+        }
     ]
 }
