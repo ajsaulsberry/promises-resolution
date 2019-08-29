@@ -16,6 +16,5 @@ function wait(ms) {
  console.log(promise1);
  console.log('After the promise1 constructor');
  promise1.then(resolveValue => console.log(resolveValue));
- console.log();
  console.log('After promise1 is called and fulfilled');
  
